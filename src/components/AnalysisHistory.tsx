@@ -15,37 +15,37 @@ const AnalysisHistory: React.FC<AnalysisHistoryProps> = ({
   if (history.length === 0) return null;
 
   return (
-    <div className="mb-6 p-4 bg-gray-50 rounded-lg border">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="font-semibold text-gray-800 text-sm">Recent Analyses</h3>
+    <div className="mb-6">
+      <div className="flex items-center justify-between mb-3 px-1">
+        <h3 className="font-medium text-foreground text-body">Recent Analyses</h3>
         <button
           onClick={onClearHistory}
-          className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
+          className="text-micro text-muted-foreground hover:text-foreground transition-colors"
         >
           Clear
         </button>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-1">
         {history.map((entry) => (
           <button
             key={entry.id}
             onClick={() => onSelectHistory(entry)}
-            className="w-full text-left p-2 bg-white rounded border hover:bg-gray-50 transition-colors"
+            className="w-full text-left p-2.5 bg-slate-800/30 rounded-inner hover:bg-slate-700/50 border border-transparent hover:border-white/5 transition-colors focus-ring"
           >
             <div className="flex items-center justify-between">
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+              <div className="flex-1 min-w-0 pr-4">
+                <p className="text-body font-medium text-foreground truncate">
                   {entry.type.charAt(0).toUpperCase() + entry.type.slice(1)} Analysis
                 </p>
-                <p className="text-xs text-gray-500 truncate">{entry.content}</p>
+                <p className="text-micro text-muted-foreground truncate mt-0.5">{entry.content}</p>
               </div>
-              <div className="flex-shrink-0 ml-2">
+              <div className="flex-shrink-0">
                 <span className={`inline-block w-2 h-2 rounded-full ${
-                  entry.result.riskLevel === 'Critical' ? 'bg-red-500' :
-                  entry.result.riskLevel === 'High Risk' ? 'bg-orange-500' :
-                  entry.result.riskLevel === 'Suspicious' ? 'bg-yellow-500' :
-                  entry.result.riskLevel === 'Low Risk' ? 'bg-lime-500' :
-                  'bg-green-500'
+                  entry.result.riskLevel === 'Critical' ? 'bg-critical shadow-[0_0_8px_rgba(239,68,68,0.8)]' :
+                  entry.result.riskLevel === 'High Risk' ? 'bg-warning shadow-[0_0_8px_rgba(245,158,11,0.8)]' :
+                  entry.result.riskLevel === 'Suspicious' ? 'bg-warning shadow-[0_0_8px_rgba(245,158,11,0.8)]' :
+                  entry.result.riskLevel === 'Low Risk' ? 'bg-safe shadow-[0_0_8px_rgba(16,185,129,0.8)]' :
+                  'bg-safe shadow-[0_0_8px_rgba(16,185,129,0.8)]'
                 }`}></span>
               </div>
             </div>

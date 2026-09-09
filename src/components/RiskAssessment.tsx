@@ -9,25 +9,27 @@ const RiskAssessment: React.FC<RiskAssessmentProps> = ({ riskLevel, summary }) =
   const getRiskClass = (level: string) => {
     switch (level.toLowerCase()) {
       case 'critical':
-        return 'border-red-500 bg-red-50';
+        return 'bg-critical/10 text-critical border-critical/50 shadow-[0_0_15px_rgba(239,68,68,0.3)]';
       case 'high risk':
-        return 'border-orange-500 bg-orange-50';
+        return 'bg-warning/10 text-warning border-warning/50 shadow-[0_0_15px_rgba(245,158,11,0.3)]';
       case 'suspicious':
-        return 'border-yellow-500 bg-yellow-50';
+        return 'bg-warning/10 text-warning border-warning/50 shadow-[0_0_15px_rgba(245,158,11,0.3)]';
       case 'low risk':
-        return 'border-lime-500 bg-lime-50';
+        return 'bg-safe/10 text-safe border-safe/50 shadow-[0_0_15px_rgba(16,185,129,0.3)]';
       case 'safe':
-        return 'border-green-500 bg-green-50';
+        return 'bg-safe/10 text-safe border-safe/50 shadow-[0_0_15px_rgba(16,185,129,0.3)]';
       default:
-        return 'border-gray-500 bg-gray-50';
+        return 'bg-[#0B0F19]/50 text-foreground border-border';
     }
   };
 
   return (
-    <div className={`p-4 rounded-lg border-l-4 mb-6 transition-all duration-300 ${getRiskClass(riskLevel)}`}>
-      <p className="text-sm font-semibold uppercase tracking-wider">Risk Level</p>
-      <p className="text-2xl font-bold">{riskLevel}</p>
-      <p className="text-gray-600 mt-1">{summary}</p>
+    <div className={`p-6 border-l-4 rounded-r-outer ${getRiskClass(riskLevel)} animate-slide-up relative overflow-hidden group`}>
+      <p className="text-micro font-medium uppercase tracking-wider mb-1">Risk Level</p>
+      <h3 className="text-2xl font-bold font-mono tracking-tight mb-2">{riskLevel}</h3>
+      <p className="text-body leading-relaxed">{summary}</p>
+      
+      <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none"></div>
     </div>
   );
 };

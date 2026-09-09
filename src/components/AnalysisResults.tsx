@@ -20,7 +20,7 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({
 
   return (
     <div className="animate-slide-up">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">Analysis Report</h2>
+      <h2 className="text-heading text-foreground mb-4">Analysis Report</h2>
       
       <RiskAssessment 
         riskLevel={results.riskLevel}
@@ -28,15 +28,15 @@ const AnalysisResults: React.FC<AnalysisResultsProps> = ({
       />
 
       {highlightedContent && (
-        <div className="mb-6 p-4 bg-gray-50 rounded-lg border">
-          <h3 className="font-semibold text-gray-800 mb-2">Content Analysis</h3>
+        <div className="mb-6 p-6 bg-muted rounded-outer border border-border">
+          <h3 className="text-body font-medium text-foreground mb-3">Content Analysis</h3>
           <div 
-            className="text-sm text-gray-700 whitespace-pre-wrap"
+            className="text-body text-muted-foreground whitespace-pre-wrap leading-relaxed"
             dangerouslySetInnerHTML={{ __html: highlightedContent }}
           />
         </div>
       )}
-      <h3 className="font-semibold text-gray-800 mb-3">Detected Red Flags</h3>
+      <h3 className="text-body font-medium text-foreground mb-3">Detected Red Flags</h3>
       
       <RedFlagsList redFlags={results.redFlags} />
       

@@ -10,7 +10,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ isVisible }) => {
   return (
     <div className="text-center py-8">
       <div className="loader mx-auto"></div>
-      <p className="text-gray-500 mt-4 font-medium">AI is analyzing... This may take a moment.</p>
+      <p className="text-muted-foreground text-body mt-4">AI is analyzing... This may take a moment.</p>
     </div>
   );
 };

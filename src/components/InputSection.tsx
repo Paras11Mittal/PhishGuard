@@ -21,16 +21,16 @@ const InputSection: React.FC<InputSectionProps> = ({
   onUrlInputChange,
 }) => {
   return (
-    <div id="input-container">
+    <div id="input-container" className="mb-6">
       {activeTab === 'email' && (
         <div>
-          <label htmlFor="email-content" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email-content" className="block text-micro text-muted-foreground mb-1.5 uppercase tracking-wide">
             Paste email content below
           </label>
           <textarea
             id="email-content"
             rows={8}
-            className="w-full max-w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-y"
+            className="w-full max-w-full p-4 border border-border rounded-inner bg-[#0B0F19] text-body text-foreground focus-ring transition-all duration-100 ease-out resize-y placeholder:text-muted-foreground shadow-inner font-mono"
             placeholder="From: security@yourbank.com..."
             value={emailContent}
             onChange={(e) => onEmailContentChange(e.target.value)}
@@ -40,13 +40,13 @@ const InputSection: React.FC<InputSectionProps> = ({
 
       {activeTab === 'message' && (
         <div>
-          <label htmlFor="message-content" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="message-content" className="block text-micro text-muted-foreground mb-1.5 uppercase tracking-wide">
             Paste message content below
           </label>
           <textarea
             id="message-content"
             rows={8}
-            className="w-full max-w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-y"
+            className="w-full max-w-full p-4 border border-border rounded-inner bg-[#0B0F19] text-body text-foreground focus-ring transition-all duration-100 ease-out resize-y placeholder:text-muted-foreground shadow-inner font-mono"
             placeholder="Your package has a delivery issue. Click here to resolve: http://bit.ly/xyz..."
             value={messageContent}
             onChange={(e) => onMessageContentChange(e.target.value)}
@@ -56,13 +56,13 @@ const InputSection: React.FC<InputSectionProps> = ({
 
       {activeTab === 'url' && (
         <div>
-          <label htmlFor="url-input" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="url-input" className="block text-micro text-muted-foreground mb-1.5 uppercase tracking-wide">
             Enter a website URL to scan
           </label>
           <input
             type="url"
             id="url-input"
-            className="w-full max-w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+            className="w-full max-w-full p-4 border border-border rounded-inner bg-[#0B0F19] text-body text-foreground focus-ring transition-all duration-100 ease-out placeholder:text-muted-foreground shadow-inner font-mono"
             placeholder="https://example-secure-login.com/update"
             value={urlInput}
             onChange={(e) => onUrlInputChange(e.target.value)}

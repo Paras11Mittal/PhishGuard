@@ -12,7 +12,7 @@ const AnalyzeButton: React.FC<AnalyzeButtonProps> = ({ onClick, disabled, isLoad
     <button
       onClick={onClick}
       disabled={disabled}
-      className="mt-6 w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all duration-200 flex items-center justify-center space-x-2 disabled:bg-blue-300"
+      className="mt-6 w-full bg-gradient-to-r from-primary to-secondary text-[#0B0F19] font-bold py-3.5 px-4 rounded-inner hover:brightness-110 transition-all duration-100 ease-out flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-98 focus-ring shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:shadow-[0_0_25px_rgba(0,229,255,0.6)]"
     >
       <SearchIcon />
       <span>{isLoading ? 'Analyzing...' : 'Analyze Now'}</span>

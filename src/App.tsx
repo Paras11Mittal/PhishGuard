@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import TabNavigation from './components/TabNavigation';
 import InputSection from './components/InputSection';
@@ -7,8 +6,12 @@ import AnalyzeButton from './components/AnalyzeButton';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorMessage from './components/ErrorMessage';
 import AnalysisResults from './components/AnalysisResults';
-import AnalysisHistory from './components/AnalysisHistory';
 import Footer from './components/Footer';
+import Sidebar from './components/Sidebar';
+import TopNav from './components/TopNav';
+import RiskDistribution from './components/RiskDistribution';
+import TelemetryWidgets from './components/TelemetryWidgets';
+import IncidentStream from './components/IncidentStream';
 import { TabType, AnalysisResult } from './types/analysis';
 import { analyzeContent, PhishingAnalysisError } from './services/phishingApi';
 import { analyzeClientSideHeuristics, highlightSuspiciousDomains } from './utils/heuristics';
@@ -153,58 +156,102 @@ function App() {
     handleAnalysis();
   };
   return (
-    <div className="bg-gray-50 text-gray-800 flex items-center justify-center min-h-screen p-4">
-      <div className="w-full max-w-2xl mx-auto">
-        <Header />
+    <div className="flex h-screen bg-background text-foreground overflow-hidden font-sans">
+      <Sidebar />
+      
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <TopNav />
         
-        <main className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-100">
-          <TabNavigation 
-            activeTab={activeTab} 
-            onTabChange={handleTabChange} 
-          />
-          
-          <AnalysisHistory
-            history={history}
-            onSelectHistory={handleSelectHistory}
-            onClearHistory={handleClearHistory}
-          />
-          
-          <InputSection
-            activeTab={activeTab}
-            emailContent={emailContent}
-            messageContent={messageContent}
-            urlInput={urlInput}
-            onEmailContentChange={setEmailContent}
-            onMessageContentChange={setMessageContent}
-            onUrlInputChange={setUrlInput}
-          />
-
-          <AnalyzeButton 
-            onClick={handleAnalysis}
-            disabled={isLoading}
-            isLoading={isLoading}
-          />
-          
-          {showResults && (
-            <div className="mt-8">
-              <LoadingSpinner isVisible={isLoading} />
-              <ErrorMessage 
-                message={errorMessage} 
-                isVisible={showError} 
-                onRetry={handleRetry}
-              />
-              {analysisResults && (
-                <AnalysisResults 
-                  results={analysisResults} 
-                  isVisible={!isLoading && !showError} 
-                  highlightedContent={highlightedContent}
-                />
-              )}
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+          <div className="max-w-[1600px] mx-auto">
+            <div className="grid grid-cols-12 gap-6 mb-8">
+              
+              {/* Top Row: Heatmap & Telemetry */}
+              <div className="col-span-12 xl:col-span-8 space-y-6">
+                <RiskDistribution history={history} />
+                <TelemetryWidgets history={history} />
+              </div>
+              
+              {/* Right Column: Incident Stream */}
+              <div className="col-span-12 xl:col-span-4 h-[820px] xl:h-auto">
+                <IncidentStream history={history} onSelectIncident={handleSelectHistory} onClearHistory={handleClearHistory} />
+              </div>
+              
+              {/* Bottom Row: PhishGuard Engine */}
+              <div className="col-span-12">
+                <div className="glass-panel p-6 sm:p-8 rounded-outer">
+                  <div className="flex items-center justify-between mb-6 pb-6 border-b border-border">
+                    <h2 className="text-heading font-bold text-foreground flex items-center">
+                      <svg className="w-6 h-6 mr-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                      Threat Analysis Engine
+                    </h2>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Left side: Inputs */}
+                    <div className="space-y-6">
+                      <TabNavigation 
+                        activeTab={activeTab} 
+                        onTabChange={handleTabChange} 
+                      />
+                      
+                      <InputSection
+                        activeTab={activeTab}
+                        emailContent={emailContent}
+                        messageContent={messageContent}
+                        urlInput={urlInput}
+                        onEmailContentChange={setEmailContent}
+                        onMessageContentChange={setMessageContent}
+                        onUrlInputChange={setUrlInput}
+                      />
+            
+                      <AnalyzeButton 
+                        onClick={handleAnalysis}
+                        disabled={isLoading}
+                        isLoading={isLoading}
+                      />
+                    </div>
+                    
+                    {/* Right side: Results */}
+                    <div className="relative">
+                      {showResults ? (
+                        <div className="h-full">
+                          <LoadingSpinner isVisible={isLoading} />
+                          <ErrorMessage 
+                            message={errorMessage} 
+                            isVisible={showError} 
+                            onRetry={handleRetry}
+                          />
+                          {analysisResults && (
+                            <AnalysisResults 
+                              results={analysisResults} 
+                              isVisible={!isLoading && !showError} 
+                              highlightedContent={highlightedContent}
+                            />
+                          )}
+                        </div>
+                      ) : (
+                        <div className="h-full min-h-[400px] border border-border border-dashed rounded-inner flex items-center justify-center p-8 text-center bg-[#0B0F19]/50">
+                          <div>
+                            <svg className="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                            <p className="text-muted-foreground text-body font-medium">Awaiting input for threat analysis...</p>
+                            <p className="text-micro text-muted-foreground mt-2 max-w-xs mx-auto">Paste an email, SMS message, or URL to begin automated security scanning.</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
+            
+            <Footer />
+          </div>
         </main>
-        
-        <Footer />
       </div>
     </div>
   );

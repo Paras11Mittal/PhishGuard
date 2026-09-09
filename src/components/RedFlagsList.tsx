@@ -9,8 +9,8 @@ interface RedFlagsListProps {
 const RedFlagsList: React.FC<RedFlagsListProps> = ({ redFlags }) => {
   if (!redFlags || redFlags.length === 0) {
     return (
-      <div className="text-center py-4 px-3 bg-green-50 rounded-lg border border-green-200">
-        <p className="font-medium text-green-800">
+      <div className="text-center py-4 px-3 bg-emerald-950/40 rounded-outer border border-emerald-500/30">
+        <p className="font-medium text-emerald-400 text-body">
           No significant red flags detected. The content appears to be safe.
         </p>
       </div>
@@ -22,14 +22,14 @@ const RedFlagsList: React.FC<RedFlagsListProps> = ({ redFlags }) => {
       {redFlags.map((flag, index) => (
         <div
           key={index}
-          className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200"
+          className="flex items-start space-x-3 p-4 bg-slate-800/50 rounded-outer border border-white/5 shadow-lg shadow-black/20"
         >
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 mt-0.5">
             <WarningIcon />
           </div>
           <div>
-            <p className="font-semibold text-gray-800">{flag.indicator}</p>
-            <p className="text-sm text-gray-600">{flag.explanation}</p>
+            <p className="font-medium text-foreground text-body">{flag.indicator}</p>
+            <p className="text-body text-muted-foreground mt-1 leading-relaxed">{flag.explanation}</p>
           </div>
         </div>
       ))}

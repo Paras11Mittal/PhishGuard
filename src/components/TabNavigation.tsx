@@ -14,16 +14,16 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, onTabChange })
   ];
 
   return (
-    <div className="mb-6 border-b border-gray-200">
-      <nav className="-mb-px flex space-x-4" aria-label="Tabs">
+    <div className="mb-6">
+      <nav className="flex space-x-1 p-1 bg-slate-900/50 rounded-outer border border-border" aria-label="Tabs">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`flex-1 whitespace-nowrap py-2.5 px-4 rounded-inner text-sm font-medium transition-all duration-100 ease-out focus-ring ${
               activeTab === tab.id
-                ? 'tab-active'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-all duration-200'
+                ? 'bg-slate-800 text-white shadow-lg shadow-primary/10 border border-white/10'
+                : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
             }`}
           >
             {tab.label}
